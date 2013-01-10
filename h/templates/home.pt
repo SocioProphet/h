@@ -49,7 +49,7 @@
              href="javascript:(function(){
                      var d=document
                        , s=d.createElement('script');
-                     s.setAttribute('src', '${request.route_url('embed')}');
+                     s.setAttribute('src', '${request.resource_url(context, 'embed.js')}');
                      d.body.appendChild(s)
                    })();">Annotate</a></li>
       </ol>
