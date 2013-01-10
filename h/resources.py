@@ -123,5 +123,4 @@ def includeme(config):
     RootFactory.api = APIFactory
     RootFactory.app = AppFactory
 
-    config.add_route('embed', '/embed.js')
     config.add_route('index', '/', factory='h.resources.RootFactory')
