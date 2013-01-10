@@ -30,7 +30,7 @@ def embed(request, standalone=True):
 
 
 @view_defaults(context='h.resources.AppFactory', renderer='json')
-class AppController(views.BaseController):
+class AppController(BaseController):
     @reify
     def auth_controller(self):
         return AuthController(self.request)
