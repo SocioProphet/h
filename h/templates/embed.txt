@@ -9,14 +9,20 @@ yepnope([
   },
   {
     test: window.Annotator,
-    nope: Array.prototype.concat.call(${inject}),
+    nope: ${inject},
     complete: function () {
-      if (window.Annotator._instance) return;
-      // Load the annotator
-      window.Annotator._instance = new Annotator.Host(document.body, {
-        /* @@ reflect routes with crossroads.js?? */
-        app: '${request.resource_url(context['app'])}',
-      })
+      var app = ${app}
+        , bootstrap = [
+          'if (window.Annotator._instance) { return; }',
+          'window.Annotator._instance = new Annotator.Host(document.body, {',
+          '  /* @@ reflect routes with crossroads.js?? */',
+          '  app: "' + app + '"',
+          '})'
+        ].join('\n')
+        , script = document.createElement('script')
+        , first = document.getElementsByTagName('script')[0]
+      script.text = bootstrap
+      first.parentNode.insertBefore(script, first)
     }
   },
   {
