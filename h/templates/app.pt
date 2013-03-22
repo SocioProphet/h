@@ -3,7 +3,8 @@
   <body data-ng-app="h"
         data-ng-controller="AppController"
         class="ng-cloak"
-        metal:fill-slot="body">
+        metal:fill-slot="body"
+        tal:attributes="ng-csp layout.csp">
 
     <!-- Toolbar -->
     <div id="toolbar" class="form-inline">
