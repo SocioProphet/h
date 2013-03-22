@@ -76,11 +76,12 @@ pagedown = Uglify(
     output='lib/Markdown.Converter.min.js'
 )
 
-domTextFamily = Bundle(
+domTextFamily = Uglify(
     Coffee('h:lib/dom_text_mapper.coffee', output='js/dom_text_mapper.js'),
     Coffee('h:lib/dom_text_matcher.coffee', output='js/dom_text_matcher.js'),
     Coffee('h:lib/text_match_engines.coffee', output='js/text_match_engines.js'),
-    Uglify('h:lib/diff_match_patch_uncompressed.js', output='lib/diff_match_patch.js')
+    Uglify('h:lib/diff_match_patch_uncompressed.js', output='lib/diff_match_patch.js'),
+    output='lib/dom_text.min.js'
 )
 
 # Base and common SCSS
@@ -144,14 +145,17 @@ site = SCSS('h:css/site.scss', depends=(base + common), output='css/site.css')
 # the frame and its parent window. It then makes cretain annotator methods
 # available via the bridge plugin.
 inject = Bundle(
-    jquery,
-    jschannel,
-    annotator,
-    annotator_bridge,
-    domTextFamily,
-    Uglify(
-        Coffee('h:js/inject/host.coffee', output='js/host.js'),
-        output='js/hypothesis-host.min.js'
+    Bundle(
+        jquery,
+        jschannel,
+        annotator,
+        annotator_bridge,
+        domTextFamily,
+        Uglify(
+            Coffee('h:js/inject/host.coffee', output='js/host.js'),
+            output='js/inject/host.min.js'
+        ),
+        output='js/inject.min.js',
     ),
     SCSS('h:css/inject.scss', depends=base, output='css/inject.css'),
 )
